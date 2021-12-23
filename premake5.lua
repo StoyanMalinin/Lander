@@ -6,7 +6,7 @@ project "Lander"
     language "C++"
     cppdialect "C++17"
     files { "src/**.h", "src/**.cpp" }
-    
+
     filter { "configurations:Debug" }
         defines { "DEBUG" }
         symbols "On"
@@ -15,4 +15,4 @@ project "Lander"
     filter { "configurations:Release" }
         defines { "NDEBUG" }
         optimize "On"
-        targetdir "bin/Debug"
+        targetdir "bin/Release"

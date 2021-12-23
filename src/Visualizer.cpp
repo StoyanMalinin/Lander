@@ -1,7 +1,7 @@
 #pragma once
+#include "Visualizer.h"
 
 #include "Collider.h"
-#include "Visualizer.h"
 
 void Visualizer::visualizeColliders(olc::Pixel color)
 {

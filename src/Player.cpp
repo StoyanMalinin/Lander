@@ -21,3 +21,5 @@ void Player::update(float elapsedTime)
 	pos += velocity * elapsedTime;
 	bodyCollider->translate(velocity * elapsedTime);
 }
+
+
