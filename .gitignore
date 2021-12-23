@@ -1,0 +1,7 @@
+.vs/**
+bin/**
+obj/**
+Lander.sln
+Lander.vcxproj
+Lander.vcxproj.user
+                                      
