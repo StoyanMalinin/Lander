@@ -46,10 +46,20 @@ bool colliders::SegmentCollider::collides(const BoxCollider& other) const
 	if (math::segmentIntersection(A, B, other.p3, other.p4) == true) return true;
 	if (math::segmentIntersection(A, B, other.p4, other.p1) == true) return true;
 
-	//if (math::insideQuad(A, other.p1, other.p2, other.p3, other.p4) == true) return true;
-	//if (math::insideQuad(B, other.p1, other.p2, other.p3, other.p4) == true) return true;
+	if (math::insideQuad(A, other.p1, other.p2, other.p3, other.p4) == true) return true;
+	if (math::insideQuad(B, other.p1, other.p2, other.p3, other.p4) == true) return true;
 
 	return false;
+}
+
+void colliders::SegmentCollider::rotate(olc::vf2d origin, float angle)
+{
+}
+
+void colliders::SegmentCollider::translate(olc::vf2d v)
+{
+	A += v;
+	B += v;
 }
 
 colliders::BoxCollider::BoxCollider() : Collider()
@@ -96,7 +106,10 @@ std::list<uint16_t> colliders::BoxCollider::getAllCollisions()
 
 void colliders::BoxCollider::rotate(olc::vf2d origin, float angle)
 {
-
+	p1 = (p1 - origin).rotated(angle) + origin;
+	p2 = (p2 - origin).rotated(angle) + origin;
+	p3 = (p3 - origin).rotated(angle) + origin;
+	p4 = (p4 - origin).rotated(angle) + origin;
 }
 
 void colliders::BoxCollider::translate(olc::vf2d v)

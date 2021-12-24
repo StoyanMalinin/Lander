@@ -35,8 +35,11 @@ namespace colliders
 		uint16_t getId() { return id; }
 		bool checkIgnored(uint16_t otherId) { return ignored.count(otherId); }
 
-		virtual bool collides(const SegmentCollider& other) const { return true; }
-		virtual bool collides(const BoxCollider& other) const { return true; }
+		virtual bool collides(const SegmentCollider& other) const { return false; }
+		virtual bool collides(const BoxCollider& other) const { return false; }
+
+		virtual void rotate(olc::vf2d origin, float angle) {}
+		virtual void translate(olc::vf2d v) {}
 	};
 
 	class SegmentCollider : public Collider
@@ -54,6 +57,9 @@ namespace colliders
 
 		bool collides(const SegmentCollider& other) const override;
 		bool collides(const BoxCollider& other) const override;
+
+		void rotate(olc::vf2d origin, float angle) override;
+		void translate(olc::vf2d v) override;
 	};
 
 	class BoxCollider : public Collider
@@ -74,8 +80,8 @@ namespace colliders
 		std::list<uint16_t> getAllCollisions();
 
 	public:
-		void rotate(olc::vf2d origin, float angle);
-		void translate(olc::vf2d v);
+		void rotate(olc::vf2d origin, float angle) override;
+		void translate(olc::vf2d v) override;
 	};
 }
 

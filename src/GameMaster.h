@@ -6,6 +6,7 @@
 #include "Terrain.h"
 #include "Player.h"
 #include "Visualizer.h"
+
 #include "olcPixelGameEngine.h"
 
 class Terrain;
@@ -15,6 +16,7 @@ class GameMaster
 {
 private:
 	Visualizer *vis;
+public:
 	std::vector <Player> players;
 
 	Terrain* t = nullptr;
@@ -24,7 +26,7 @@ public:
 	GameMaster(Visualizer* vis);
 
 public:
-	void addPlayer(int x, int y, olc::Pixel color);
+	void addPlayer(int x, int y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey);
 
 	void render();
 	void updateState(float elapsedTime);

@@ -6,12 +6,12 @@
 GameMaster::GameMaster() : vis(nullptr) {}
 GameMaster::GameMaster(Visualizer* vis) : vis(vis) 
 {
-	t = new Terrain(9.81, { olc::vf2d(0, 0), olc::vf2d(100, 100), olc::vf2d(200, 100), olc::vf2d(1000, 400), olc::vf2d(1200, 410) });
+	t = new Terrain(5.81, { olc::vf2d(0, 0), olc::vf2d(100, 100), olc::vf2d(200, 100), olc::vf2d(1000, 400), olc::vf2d(1200, 410) });
 }
 
-void GameMaster::addPlayer(int x, int y, olc::Pixel color)
+void GameMaster::addPlayer(int x, int y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey)
 {
-	players.emplace_back(x, y, color);
+	players.emplace_back(x, y, color, thrustKey, leftKey, rightKey);
 }
 
 void GameMaster::render()
@@ -33,7 +33,27 @@ void GameMaster::updateState(float elapsedTime)
 	}
 
 	for (Player& p : players)
+	{
 		p.applyForce(olc::vf2d(0, -t->gravity), elapsedTime);
+		if (vis->GetKey(p.thrustKey).bHeld == true)
+			p.applyForce(-p.orientation * 12, elapsedTime);
+		if(vis->GetKey(p.leftKey).bHeld==true)
+		{
+			p.bodyCollider->rotate(p.pos, -2 * elapsedTime);
+			p.footCollider->rotate(p.pos, -2 * elapsedTime);
+
+			p.orientation.rotate(-2 * elapsedTime);
+			p.trans.Rotate(-2 * elapsedTime);
+		}
+		if(vis->GetKey(p.rightKey).bHeld==true)
+		{
+			p.bodyCollider->rotate(p.pos, +2 * elapsedTime);
+			p.footCollider->rotate(p.pos, +2 * elapsedTime);
+
+			p.orientation.rotate(+2 * elapsedTime);
+			p.trans.Rotate(+2 * elapsedTime);
+		}
+	}
 	for (Player& p : players)
 		p.update(elapsedTime);
 }

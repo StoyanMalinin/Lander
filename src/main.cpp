@@ -1,4 +1,5 @@
 #define OLC_PGE_APPLICATION
+#define OLC_PGEX_GRAPHICS2D
 
 #include <iostream>
 #include "Visualizer.h"
