@@ -7,7 +7,8 @@
 struct Player
 {
 	float scale = 1;
-	const float height = 40, width = 60;
+	const float rotationSpeed = 1.5;
+	const float height = 30, width = 30;
 	
 	olc::Sprite *sprite;
 	olc::Pixel color = olc::RED;

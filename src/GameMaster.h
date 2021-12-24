@@ -27,12 +27,9 @@ public:
 
 public:
 	void addPlayer(int x, int y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey);
-
-	void render();
 	void updateState(float elapsedTime);
 
 private:
-	void renderEntity(Player& p);
 	void FillRotatedRect(olc::vf2d pos, float width, float height, olc::vf2d orientation, olc::Pixel color);
 };
 

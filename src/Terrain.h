@@ -1,18 +1,18 @@
 #pragma once
 
 #include <vector>
-#include "olcPixelGameEngine.h"
-
+#include <random>
 #include "Collider.h"
 #include "Visualizer.h"
 
+#include "olcPixelGameEngine.h"
 class Visualizer;
 
 class Terrain
 {
-public:
+protected:
 	float gravity;
-private:
+protected:
 	std::vector <olc::vf2d> points;
 	std::vector <colliders::SegmentCollider*> colliders;
 
@@ -32,6 +32,22 @@ public:
 		points.emplace_back(x, y);
 	}
 
-	void generate();
+	float getGravity() { return gravity; }
+
+	virtual void generate(float screenWidth, float screenHeight) {}
 };
 
+class VerticalTerrain : public Terrain
+{
+private:
+	static std::mt19937 rnd;
+
+public:
+	VerticalTerrain(float gravity) : Terrain(gravity) {}
+
+private:
+	float maxHeight, maxDelta;
+
+public:
+	void generate(float screenWidth, float screenHeight) override;
+};

@@ -13,6 +13,8 @@ Player::Player(float x, float y, olc::Pixel color, olc::Key thrustKey, olc::Key 
 		                                            this->pos + this->orientation.perp() * this->width + this->orientation * this->height,
 		                                            this->pos + this->orientation * this->height);
 
+	this->bodyCollider->addIgnoredId(footCollider->getId());
+	this->footCollider->addIgnoredId(bodyCollider->getId());
 
 	this->sprite = new olc::Sprite("./assets/player.png");
 	this->trans.Scale(this->width / (float)this->sprite->width, this->height / (float)this->sprite->height);

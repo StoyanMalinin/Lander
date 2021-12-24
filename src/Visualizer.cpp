@@ -41,8 +41,7 @@ olc::vi2d Visualizer::inv(const olc::vi2d& v)
 
 Visualizer::Visualizer()
 {
-	sAppName = "Lander";
-	gm = new GameMaster(this);
+	
 }
 
 void Visualizer::FillTriangle(const olc::vi2d& pos1, const olc::vi2d& pos2, const olc::vi2d& pos3, olc::Pixel p)
@@ -57,6 +56,9 @@ void Visualizer::DrawLine(const olc::vi2d& pos1, const olc::vi2d& pos2, olc::Pix
 
 bool Visualizer::OnUserCreate()
 {
+	sAppName = "Lander";
+	gm = new GameMaster(this);
+
 	startX = 0; startY = 0;
 	endX = ScreenWidth(); endY = ScreenHeight();
 
@@ -67,14 +69,14 @@ bool Visualizer::OnUserCreate()
 
 bool Visualizer::OnUserUpdate(float fElapsedTime)
 {
-	Clear(olc::BLUE);
+	Clear(olc::BLACK);
 	
 	//update
 	gm->updateState(fElapsedTime);
 
 	//render
-	//gm->render();
 	visualizePlayers();
+	//gm->t->render(this);
 	visualizeColliders(olc::GREEN);
 
 	return true;
