@@ -31,6 +31,7 @@ public:
 
 private:
 	void FillRotatedRect(olc::vf2d pos, float width, float height, olc::vf2d orientation, olc::Pixel color);
+	void handlePlayerDeath(Player& p);
 };
 
 #endif

@@ -65,7 +65,7 @@ namespace colliders
 	class BoxCollider : public Collider
 	{
 	public:
-		olc::vf2d p1, p2, p3, p4; //doesn't really matter whether the orientation is clockwise or counterclockwise
+		olc::vf2d p1, p2, p3, p4; //the orientation must be clockwise
 
 		BoxCollider();
 		BoxCollider(olc::vf2d p1, olc::vf2d p2, olc::vf2d p3, olc::vf2d p4);

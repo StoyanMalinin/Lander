@@ -11,6 +11,11 @@ namespace math
 		return ((A.x * B.y + A.y * C.x + B.x * C.y) - (A.y*B.x + A.x*C.y + B.y*C.x))*0.5;
 	}
 
+	float calcDist(olc::vf2d A, olc::vf2d B)
+	{
+		return sqrtf((A.x-B.x)*(A.x-B.x) + (A.y - B.y) * (A.y - B.y));
+	}
+
 	float sign(float x)
 	{
 		if (x < 0) return -1;
@@ -53,6 +58,18 @@ namespace math
 		
 		const float eps = 0.0000001;
 		return (fabs((S1 + S2 + S3 + S4) - S) < eps);
+	}
+	bool checkCollinear(olc::vf2d A, olc::vf2d B, olc::vf2d C, const float eps)
+	{
+		float ab = calcDist(A, B);
+		float ac = calcDist(A, C);
+		float bc = calcDist(B, C);
+	
+		if (ab >= ac && ab >= bc && fabs(ab - (ac + bc)) < eps) return true;
+		if (ac >= ab && ac >= bc && fabs(ac - (ab + bc)) < eps) return true;
+		if (bc >= ab && bc >= ac && fabs(bc - (ab + ac)) < eps) return true;
+	
+		return false;
 	}
 };
 

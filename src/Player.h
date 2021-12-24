@@ -14,14 +14,14 @@ struct Player
 	olc::Pixel color = olc::RED;
 
 	olc::vf2d pos = { 0, 0 };
+	olc::vf2d velocity = { 0, 0 };
 	olc::GFX2D::Transform2D trans;
 	olc::vf2d orientation = { 0, - 1 };
 
-	olc::vf2d velocity = { 0, 0 };
-
+	olc::Key thrustKey, leftKey, rightKey;
 	colliders::BoxCollider* bodyCollider, *footCollider;
 	
-	olc::Key thrustKey, leftKey, rightKey;
+	bool landed = false, died = false;
 
 	Player();
 	Player(float x, float y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey); 

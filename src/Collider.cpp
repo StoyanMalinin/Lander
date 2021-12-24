@@ -92,12 +92,7 @@ std::list<uint16_t> colliders::BoxCollider::getAllCollisions()
 	std::list<uint16_t> l;
 
 	for (colliders::SegmentCollider* sc : colliders::SegmentCollider::allSegmentColliders)
-	{
-		if (checkIgnored(sc->getId()) == false && collides(*sc) == true)
-		{
-			l.push_back(sc->getId());
-		}
-	}
+		if (checkIgnored(sc->getId()) == false && collides(*sc) == true) l.push_back(sc->getId());
 	for (colliders::BoxCollider* bc : colliders::BoxCollider::allBoxColliders)
 		if (checkIgnored(bc->getId()) == false && collides(*bc) == true) l.push_back(bc->getId());
 
