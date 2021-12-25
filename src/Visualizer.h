@@ -16,6 +16,7 @@ private:
 
 private:
 	void visualizeColliders(olc::Pixel color);
+	void visualizePlayerStats();
 	void visualizePlayers();
 	olc::vi2d inv(const olc::vi2d& v);
 

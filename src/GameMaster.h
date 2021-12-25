@@ -28,7 +28,7 @@ public:
 	GameMaster(Visualizer* vis);
 
 public:
-	void addPlayer(int x, int y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey);
+	void addPlayer(const std::string& name, int x, int y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey);
 	void updateState(float elapsedTime);
 
 private:

@@ -40,4 +40,9 @@ void Player::update(float elapsedTime)
 	footCollider->translate(velocity * elapsedTime);
 }
 
+std::string Player::getStats() const
+{
+	return name + ": " + "Score: " + std::to_string(score) + " | " + "Velocity: " + std::to_string(velocity.mag());
+}
+
 

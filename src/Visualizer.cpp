@@ -22,6 +22,16 @@ void Visualizer::visualizeColliders(olc::Pixel color)
 	}
 }
 
+void Visualizer::visualizePlayerStats()
+{
+	int yPos = 5;
+	for (const Player& p : gm->players)
+	{
+		this->DrawString({ 0, yPos }, p.getStats(), p.color, 1);
+		yPos += 10;
+	}
+}
+
 void Visualizer::visualizePlayers()
 {
 	for (Player& p : gm->players)
@@ -59,7 +69,8 @@ bool Visualizer::OnUserCreate()
 	startX = 0; startY = 0;
 	endX = ScreenWidth(); endY = ScreenHeight();
 
-	gm->addPlayer(1*ScreenWidth()/(1+1), ScreenHeight(), olc::RED, olc::Key::W, olc::Key::A, olc::Key::D);
+	gm->addPlayer("Player 1", 1 * ScreenWidth() / (2 + 1), ScreenHeight(), olc::WHITE, olc::Key::W, olc::Key::A, olc::Key::D);
+	gm->addPlayer("Player 2", 2 * ScreenWidth() / (2 + 1), ScreenHeight(), olc::RED, olc::Key::W, olc::Key::A, olc::Key::D);
 
 	return true;
 }
@@ -74,6 +85,7 @@ bool Visualizer::OnUserUpdate(float fElapsedTime)
 	//render
 	visualizePlayers();
 	gm->t->render(this);
+	visualizePlayerStats();
 	//visualizeColliders(olc::GREEN);
 
 	return true;

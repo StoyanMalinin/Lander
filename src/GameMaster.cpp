@@ -15,9 +15,9 @@ GameMaster::GameMaster(Visualizer* vis) : vis(vis)
 	t->generate(vis->ScreenWidth(), vis->ScreenHeight());
 }
 
-void GameMaster::addPlayer(int x, int y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey)
+void GameMaster::addPlayer(const std::string& name, int x, int y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey)
 {
-	players.emplace_back("Player 1", x, y, color, thrustKey, leftKey, rightKey);
+	players.emplace_back(name, x, y, color, thrustKey, leftKey, rightKey);
 }
 
 void GameMaster::updateState(float elapsedTime)
