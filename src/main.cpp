@@ -11,6 +11,6 @@ int main()
 {
 	Visualizer v;
 
-	v.Construct(1280, 720, 1, 1);
+	v.Construct(1600, 900, 1, 1);
 	v.Start();
 }

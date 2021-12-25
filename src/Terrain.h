@@ -51,7 +51,7 @@ public:
 class VerticalTerrain : public Terrain
 {
 protected:
-	std::mt19937 rnd;
+	random::RandomNumberGenerator rnd;
 
 public:
 	VerticalTerrain(float gravity);

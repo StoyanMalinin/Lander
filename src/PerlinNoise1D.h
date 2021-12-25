@@ -10,7 +10,7 @@ namespace random
 	class PerlinNoise1D
 	{
 	private:
-		float vectors[20+1];
+		float vectors[gridSz+1];
 		RandomNumberGenerator rnd;
 
 	public:
@@ -41,21 +41,24 @@ namespace random
 	template <int gridSz>
 	void PerlinNoise1D<gridSz>::init()
 	{
-		for (int i = 0; i <= 20; i++)
-			vectors[i] = rnd.randFloat() * 2 - 1.0f;
+		for (int i = 0; i <= gridSz; i++)
+			vectors[i] = rnd.randFloat() * 2.0f - 1.0f;
 	}
 
 	template <int gridSz>
 	float PerlinNoise1D<gridSz>::sample(float x, float minX, float maxX)
 	{
-		float blockSz = (maxX - minX) / 20;
+		float blockSz = (maxX - minX) / gridSz;
 		int block = (int)((x - minX) / blockSz);
-		if (block == 20) return vectors[block];
+		if (block == gridSz) return vectors[block];
 
 		float v1 = vectors[block], offset1 = x - ((float)block) * blockSz;
 		float v2 = vectors[block + 1], offset2 = ((float)(block + 1)) * blockSz - x;
 
-		return linearInterpolation(x, ((float)block) * blockSz, v1 * offset1, ((float)(block + 1)) * blockSz, v2 * offset2)/blockSz;
+		float val = linearInterpolation(x, ((float)block) * blockSz, v1 * offset1, ((float)(block + 1)) * blockSz, v2 * offset2);
+		float minVal = -1 * blockSz, maxVal = +1*blockSz;
+
+		return (val - minVal) / (maxVal - minVal);
 	}
 
 	template <int gridSz>

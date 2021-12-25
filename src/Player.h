@@ -21,9 +21,10 @@ struct Player
 	olc::Key thrustKey, leftKey, rightKey;
 	colliders::BoxCollider* bodyCollider, *footCollider;
 	
+	std::string name;
 	bool landed = false, died = false;
 
-	Player(float x, float y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey); 
+	Player(const std::string& name, float x, float y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey); 
 
 	void rotate(float angle);
 	void applyForce(olc::vf2d F, float elapsedTime);

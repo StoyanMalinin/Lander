@@ -5,6 +5,7 @@
 #include "Visualizer.h"
 
 #include "Terrain.h"
+#include "PerlinNoise1D.h"
 #include "olcPGEX_Graphics2D.h"
 
 void Visualizer::visualizeColliders(olc::Pixel color)
@@ -58,7 +59,7 @@ bool Visualizer::OnUserCreate()
 	startX = 0; startY = 0;
 	endX = ScreenWidth(); endY = ScreenHeight();
 
-	gm->addPlayer(500, 500, olc::RED, olc::Key::W, olc::Key::A, olc::Key::D);
+	gm->addPlayer(1*ScreenWidth()/(1+1), ScreenHeight(), olc::RED, olc::Key::W, olc::Key::A, olc::Key::D);
 
 	return true;
 }

@@ -25,30 +25,24 @@ VerticalTerrain::VerticalTerrain(float gravity, const std::vector<olc::vf2d>& po
 
 VerticalTerrain::VerticalTerrain(float gravity, uint32_t seed) : Terrain(gravity)
 {
-	this->rnd = std::mt19937(seed);
+	this->rnd = random::RandomNumberGenerator(seed);
 }
 
 void VerticalTerrain::generate(float screenWidth, float screenHeight)
 {
-	int len = rnd() % 20 + 1;
+	int len = rnd.randIntInRange(5, 25);
 
-	int xSum = screenWidth;
-	std::vector <int> xDeltas;
+	int maxX = screenWidth;
 
-	for (int i = 0; i < len-2; i++)
-	{
-		xDeltas.push_back(rnd() % ((xSum-5) / 3) + 1);
-		xSum -= xDeltas.back();
-	}
-	xDeltas.push_back(xSum);
+	std::vector <int> xVals;
+	for (int i = 0; i < len - 2; i++) xVals.push_back(rnd() % maxX);
+	xVals.push_back(0); xVals.push_back(maxX);
+	std::sort(xVals.begin(), xVals.end());
 
-	int x = 0;
 	for (int i = 0; i < len; i++)
 	{
 		int y = rnd() % ((int)(screenHeight*0.7) + 1);
-		points.emplace_back(x, y);
-
-		if (i != len - 1) x += xDeltas[i];
+		points.emplace_back(xVals[i] , y);
 	}
 
 	for (int i = 0; i + 1 < len; i++)

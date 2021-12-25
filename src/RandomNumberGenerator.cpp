@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <chrono>
 
 #include "RandomNumberGenerator.h"
@@ -22,6 +23,8 @@ namespace random
 	float RandomNumberGenerator::randFloat()
 	{
 		const int maxNum = (1 << 10);
-		return ((float)(rnd()&(maxNum-1)))/((float)(maxNum-1));
+		int x = abs((int)rnd());
+
+		return ((float)(x%(maxNum)))/((float)(maxNum-1));
 	}
 };

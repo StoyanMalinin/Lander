@@ -2,6 +2,9 @@
 
 #include "Terrain.h"
 
+#include <vector>
+#include <algorithm>
+
 template <int perlinGridSz>
 class VerticalTerrainPerlin : public VerticalTerrain
 {
@@ -32,25 +35,20 @@ VerticalTerrainPerlin<perlinGridSz>::VerticalTerrainPerlin(float gravity, const 
 template <int perlinGridSz>
 void VerticalTerrainPerlin<perlinGridSz>::generate(float screenWidth, float screenHeight)
 {
-	int len = rnd() % 30 + 10;
+	int len = rnd.randIntInRange(30, 60);
+	int maxX = screenWidth;
 
-	int xSum = screenWidth;
-	std::vector <int> xDeltas;
+	std::vector <int> xVals;
+	for (int i = 0; i < len-2; i++) xVals.push_back(rnd() % maxX);
+	xVals.push_back(0); xVals.push_back(maxX);
+	std::sort(xVals.begin(), xVals.end());
 
-	for (int i = 0; i < len - 2; i++)
-	{
-		xDeltas.push_back(rnd() % ((xSum - 5) / 3) + 1);
-		xSum -= xDeltas.back();
-	}
-	xDeltas.push_back(xSum);
-
-	int x = 0;
 	for (int i = 0; i < len; i++)
 	{
-		int y = ((perlin.sample(x, 0, screenWidth) + 1.0f)*0.5f) * (screenHeight * 0.7);
-		points.emplace_back(x, y);
+		float coef = perlin.sample(xVals[i], 0, screenWidth);
 
-		if (i != len - 1) x += xDeltas[i];
+		int y = coef * (screenHeight * 0.8);
+		points.emplace_back(xVals[i], y);
 	}
 
 	for (int i = 0; i + 1 < len; i++)

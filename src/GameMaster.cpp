@@ -8,16 +8,16 @@
 GameMaster::GameMaster() : vis(nullptr) {}
 GameMaster::GameMaster(Visualizer* vis) : vis(vis) 
 {
-	//t = new VerticalTerrain(5.81, { olc::vf2d(0, 300), olc::vf2d(100, 300), olc::vf2d(200, 300), olc::vf2d(400, 300), olc::vf2d(500, 300), olc::vf2d(1000, 300) });
-	
-	t = new VerticalTerrainPerlin<20>(3.81f);
+	//t = new Terrain(5.81, { olc::vf2d(0, 300), olc::vf2d(100, 300), olc::vf2d(200, 300), olc::vf2d(400, 300), olc::vf2d(500, 300), olc::vf2d(1000, 300) });
+	t = new VerticalTerrainPerlin<300>(3.81f);
 	//t = new VerticalTerrain(3.81f);
+	
 	t->generate(vis->ScreenWidth(), vis->ScreenHeight());
 }
 
 void GameMaster::addPlayer(int x, int y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey)
 {
-	players.emplace_back(x, y, color, thrustKey, leftKey, rightKey);
+	players.emplace_back("Player 1", x, y, color, thrustKey, leftKey, rightKey);
 }
 
 void GameMaster::updateState(float elapsedTime)
