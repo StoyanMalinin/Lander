@@ -4,6 +4,7 @@
 #include "Collider.h"
 #include "Visualizer.h"
 
+#include "Terrain.h"
 #include "olcPGEX_Graphics2D.h"
 
 void Visualizer::visualizeColliders(olc::Pixel color)
@@ -39,11 +40,6 @@ olc::vi2d Visualizer::inv(const olc::vi2d& v)
 	return { v.x, ScreenHeight() - v.y };
 }
 
-Visualizer::Visualizer()
-{
-	
-}
-
 void Visualizer::FillTriangle(const olc::vi2d& pos1, const olc::vi2d& pos2, const olc::vi2d& pos3, olc::Pixel p)
 {
 	olc::PixelGameEngine::FillTriangle(inv(pos1), inv(pos2), inv(pos3), p);
@@ -76,8 +72,8 @@ bool Visualizer::OnUserUpdate(float fElapsedTime)
 
 	//render
 	visualizePlayers();
-	//gm->t->render(this);
-	visualizeColliders(olc::GREEN);
+	gm->t->render(this);
+	//visualizeColliders(olc::GREEN);
 
 	return true;
 }

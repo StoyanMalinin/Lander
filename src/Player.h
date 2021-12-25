@@ -23,7 +23,6 @@ struct Player
 	
 	bool landed = false, died = false;
 
-	Player();
 	Player(float x, float y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey); 
 
 	void rotate(float angle);

@@ -20,9 +20,6 @@ private:
 	olc::vi2d inv(const olc::vi2d& v);
 
 public:
-	Visualizer();
-
-public:
 	void FillTriangle(const olc::vi2d& pos1, const olc::vi2d& pos2, const olc::vi2d& pos3, olc::Pixel p = olc::WHITE) override;
 	void DrawLine(const olc::vi2d& pos1, const olc::vi2d& pos2, olc::Pixel p = olc::WHITE, uint32_t pattern = 0xFFFFFFFF) override;
 

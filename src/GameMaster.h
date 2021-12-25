@@ -11,6 +11,8 @@
 
 class Terrain;
 class Visualizer;
+template <int perlinGridSz>
+class VerticalTerrainPerlin;
 
 class GameMaster
 {

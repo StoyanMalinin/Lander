@@ -2,13 +2,16 @@
 
 #include <iostream>
 #include "GameMaster.h"
+#include "Terrain.h"
+#include "VerticalTerrainPerlin.cpp"
 
 GameMaster::GameMaster() : vis(nullptr) {}
 GameMaster::GameMaster(Visualizer* vis) : vis(vis) 
 {
 	//t = new VerticalTerrain(5.81, { olc::vf2d(0, 300), olc::vf2d(100, 300), olc::vf2d(200, 300), olc::vf2d(400, 300), olc::vf2d(500, 300), olc::vf2d(1000, 300) });
 	
-	t = new VerticalTerrain(3.81);
+	t = new VerticalTerrainPerlin<20>(3.81f);
+	//t = new VerticalTerrain(3.81f);
 	t->generate(vis->ScreenWidth(), vis->ScreenHeight());
 }
 
@@ -29,7 +32,7 @@ void GameMaster::updateState(float elapsedTime)
 		std::list<uint16_t> footCollisions = p.footCollider->getAllCollisions();
 		if (footCollisions.empty() == false)
 		{
-			if (p.velocity.mag() > 22)
+			if (p.velocity.mag() > 25)
 			{
 				handlePlayerDeath(p);
 				std::cout << "The landing velocity was : " << p.velocity.mag() << '\n';

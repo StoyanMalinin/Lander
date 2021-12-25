@@ -2,11 +2,19 @@
 
 #include <vector>
 #include <random>
+
 #include "Collider.h"
 #include "Visualizer.h"
+#include "PerlinNoise1D.h"
 
 #include "olcPixelGameEngine.h"
+
 class Visualizer;
+namespace random
+{
+	template <int gridSz>
+	class PerlinNoise1D;
+};
 
 class Terrain
 {
@@ -42,14 +50,15 @@ public:
 
 class VerticalTerrain : public Terrain
 {
-private:
-	static std::mt19937 rnd;
+protected:
+	std::mt19937 rnd;
 
 public:
-	VerticalTerrain(float gravity) : Terrain(gravity) {}
-	VerticalTerrain(float gravity, const std::vector<olc::vf2d>& points) : Terrain(gravity, points) {}
+	VerticalTerrain(float gravity);
+	VerticalTerrain(float gravity, const std::vector<olc::vf2d>& points);
+	VerticalTerrain(float gravity, uint32_t seed);
 
-private:
+protected:
 	float maxHeight, maxDelta;
 
 public:

@@ -26,10 +26,6 @@ void Player::rotate(float angle)
 	trans.Rotate(angle);
 }
 
-Player::Player()
-{
-}
-
 void Player::applyForce(olc::vf2d F, float elapsedTime)
 {
 	velocity += F * elapsedTime;

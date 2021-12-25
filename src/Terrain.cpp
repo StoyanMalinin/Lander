@@ -1,4 +1,7 @@
+#pragma once
+
 #include "Terrain.h"
+//#include "PerlinNoise1D.h"
 
 void Terrain::render(Visualizer* vis, olc::Pixel color)
 {
@@ -15,12 +18,22 @@ Terrain::Terrain(float gravity, const std::vector<olc::vf2d>& points) : gravity(
 	}
 }
 
+VerticalTerrain::VerticalTerrain(float gravity) : Terrain(gravity) {}
+
+VerticalTerrain::VerticalTerrain(float gravity, const std::vector<olc::vf2d>& points) : Terrain(gravity, points) {}
+
+
+VerticalTerrain::VerticalTerrain(float gravity, uint32_t seed) : Terrain(gravity)
+{
+	this->rnd = std::mt19937(seed);
+}
+
 void VerticalTerrain::generate(float screenWidth, float screenHeight)
 {
 	int len = rnd() % 20 + 1;
 
 	int xSum = screenWidth;
-	std::vector <float> xDeltas;
+	std::vector <int> xDeltas;
 
 	for (int i = 0; i < len-2; i++)
 	{
@@ -98,4 +111,3 @@ bool VerticalTerrain::checkSafeLanding(colliders::BoxCollider *foot, std::list<u
 	return true;
 }
 
-std::mt19937 VerticalTerrain::rnd = std::mt19937(19112019);
