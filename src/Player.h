@@ -10,7 +10,7 @@ struct Player
 {
 	float scale = 1;
 	const float rotationSpeed = 1.5;
-	const float height = 30, width = 30;
+	const float height = 20, width = 30;
 	
 	std::shared_ptr<olc::Sprite> sprite;
 	olc::Pixel color = olc::WHITE;
@@ -20,6 +20,7 @@ struct Player
 	olc::GFX2D::Transform2D trans;
 	olc::vf2d orientation = { 0, - 1 };
 
+	float fuel;
 	olc::Key thrustKey, leftKey, rightKey;
 	std::shared_ptr<colliders::BoxCollider> bodyCollider, footCollider;
 	

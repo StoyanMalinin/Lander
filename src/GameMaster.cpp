@@ -66,8 +66,14 @@ void GameMaster::updateState(float elapsedTime)
 		if (p.landed == true) continue;
 
 		p.applyForce(olc::vf2d(0, -t->getGravity()), elapsedTime);
-		if (vis->GetKey(p.thrustKey).bHeld == true)
+		if (vis->GetKey(p.thrustKey).bHeld == true && p.fuel > 0)
+		{
 			p.applyForce(-p.orientation * 12, elapsedTime);
+		
+			p.fuel -= elapsedTime*20;
+			if (p.fuel < 0.0f) p.fuel = 0.0f;
+		}
+
 		if(vis->GetKey(p.leftKey).bHeld==true)
 		{
 			p.bodyCollider->rotate(p.pos, -p.rotationSpeed * elapsedTime);

@@ -216,7 +216,7 @@ bool Visualizer::PLAYINGupdate(float fElapsedTime)
 	visualizePlayers();
 	gm->t->render(this);
 	visualizePlayerStats();
-	visualizeColliders(olc::GREEN);
+	//visualizeColliders(olc::GREEN);
 
 	return true;
 }
