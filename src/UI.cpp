@@ -66,6 +66,11 @@ namespace ui
 		return false;
 	}
 
+	void RadioButton::reset()
+	{
+		clicked = false;
+	}
+
 	void renderRadioButton(const RadioButton& rb, olc::PixelGameEngine* pge)
 	{
 		pge->DrawCircle(rb.pos, rb.r, olc::BLACK);
@@ -99,6 +104,13 @@ namespace ui
 				}
 			}
 		}
+	}
+
+	void RadioButtonCluster::reset()
+	{
+		clicked = false;
+		for (RadioButton& rb : radioButtons)
+			rb.reset();
 	}
 
 	void renderRadioButtonCluster(const RadioButtonCluster& rbc, olc::PixelGameEngine* pge)

@@ -1,13 +1,17 @@
 #ifndef VISUALIZER_H
 #define VISUALIZER_H
 
+#include "Terrain.h"
+
 #include "UI.h"
 #include "Collider.h"
 #include "GameMaster.h"
 #include "olcPixelGameEngine.h"
 #include "olcPGEX_Graphics2D.h"
 
+class Terrain;
 class GameMaster;
+enum class TerrainType;
 
 enum class GameState
 {
@@ -22,6 +26,7 @@ class Visualizer : public olc::PixelGameEngine
 {
 private:
 	GameState gameState;
+	TerrainType terrainType;
 
 	GameMaster *gm;
 	float startX, endX, startY, endY;
@@ -40,7 +45,13 @@ private:
 	ui::RadioButtonCluster playerCountSelecter;
 	bool GAMESETTINGSupdate(float fElapsedTime);
 
+	void resetRound();
+	Terrain* genNewTerrain();
 	bool PLAYINGupdate(float fElapsedTime);
+
+	std::string ROUNDOVERtext;
+	ui::Button nextRoundButton, resetGameButton;
+	bool ROUNDOVERupdate(float fElapsedTime);
 
 public:
 	void FillTriangle(const olc::vi2d& pos1, const olc::vi2d& pos2, const olc::vi2d& pos3, olc::Pixel p = olc::WHITE) override;

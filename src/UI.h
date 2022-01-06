@@ -1,6 +1,6 @@
 #pragma once
 
-#include <list>
+#include <vector>
 
 #include "olcPixelGameEngine.h"
 
@@ -39,16 +39,19 @@ namespace ui
 		RadioButton(const olc::PixelGameEngine* pge, int r, const olc::vi2d& pos, const std::string text);
 
 		bool checkClicked();
+		void reset();
 	};
 	void renderRadioButton(const RadioButton& rb, olc::PixelGameEngine* pge);
 
 	struct RadioButtonCluster
 	{
 		bool clicked = false;
-		std::list <RadioButton> radioButtons;
+		std::vector <RadioButton> radioButtons;
 
 		void addButton(const RadioButton& rb);
 		void updateState();
+
+		void reset();
 	};
 	void renderRadioButtonCluster(const RadioButtonCluster& rbc, olc::PixelGameEngine* pge);
 }

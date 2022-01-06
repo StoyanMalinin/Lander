@@ -15,6 +15,14 @@ GameMaster::GameMaster(Visualizer* vis) : vis(vis)
 	t->generate(vis->ScreenWidth(), vis->ScreenHeight());
 }
 
+void GameMaster::reset()
+{
+	players.clear();
+
+	delete t;
+	t = nullptr;
+}
+
 void GameMaster::addPlayer(const std::string& name, int x, int y, olc::Pixel color, olc::Key thrustKey, olc::Key leftKey, olc::Key rightKey)
 {
 	players.emplace_back(name, x, y, color, thrustKey, leftKey, rightKey);
@@ -32,17 +40,16 @@ void GameMaster::updateState(float elapsedTime)
 		std::list<uint16_t> footCollisions = p.footCollider->getAllCollisions();
 		if (footCollisions.empty() == false)
 		{
-			if (p.velocity.mag() > 25)
+			if (p.velocity.mag() > 30)
 			{
 				handlePlayerDeath(p);
 				std::cout << "The landing velocity was : " << p.velocity.mag() << '\n';
 			}
 			else
 			{
-				if (t->checkSafeLanding(p.footCollider, footCollisions) == true)
+				if (t->checkSafeLanding(p.footCollider.get(), footCollisions) == true)
 				{
-					std::cout << "Player successfully landed" << '\n';
-					p.landed = true;
+					handlePlayerLanding(p);
 				}
 				else
 				{
@@ -82,6 +89,56 @@ void GameMaster::updateState(float elapsedTime)
 		if(p.landed==false && p.died==false) p.update(elapsedTime);
 }
 
+bool GameMaster::checkAllDeath()
+{
+	bool allDeath = true;
+	for (const Player& p : players)
+	{
+		if (p.died == false)
+		{
+			allDeath = false;
+			break;
+		}
+	}
+	if (allDeath == true) return true;
+
+	return false;
+}
+
+bool GameMaster::checkForLanding()
+{
+	for (const Player& p : players)
+	{
+		if (p.landed == true) return true;
+	}
+
+	return false;
+}
+
+bool GameMaster::checkRoundOver()
+{
+	if (checkForLanding() == true) return true;
+	if (checkAllDeath() == true) return true;
+
+	return false;
+}
+
+void GameMaster::resetPlayers()
+{
+	for (int i = 0; i < players.size(); i++)
+	{
+		players[i].resetToPosition(olc::vf2d((i + 1) * vis->ScreenWidth() / (players.size() +1), vis->ScreenHeight()));
+	}
+}
+
+const Player* GameMaster::getLandedPlayer()
+{
+	for (const Player& p : players)
+		if (p.landed == true) return &p;
+
+	return nullptr;
+}
+
 void GameMaster::FillRotatedRect(olc::vf2d pos, float width, float height, olc::vf2d orientation, olc::Pixel color)
 {
 	olc::vf2d down, right;
@@ -96,5 +153,13 @@ void GameMaster::FillRotatedRect(olc::vf2d pos, float width, float height, olc::
 void GameMaster::handlePlayerDeath(Player& p)
 {
 	p.died = true;
-	std::cout << "Player died" << '\n';
+	std::cout << p.name << " died" << '\n';
+}
+
+void GameMaster::handlePlayerLanding(Player& p)
+{
+	p.landed = true;
+	p.score++;
+
+	std::cout << p.name << " sucessfully landed" << '\n';
 }

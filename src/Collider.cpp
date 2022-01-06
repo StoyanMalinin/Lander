@@ -17,6 +17,12 @@ colliders::SegmentCollider::SegmentCollider(olc::vf2d A, olc::vf2d B) : Collider
 	this->B = B;
 
 	this->allSegmentColliders.push_back(this);
+	this->id2Pos[this->id] = std::prev(this->allSegmentColliders.end());
+}
+
+colliders::SegmentCollider::~SegmentCollider()
+{
+	allSegmentColliders.erase(id2Pos[id]);
 }
 
 std::list<uint16_t> colliders::SegmentCollider::getAllCollisions()
@@ -33,6 +39,8 @@ std::list<uint16_t> colliders::SegmentCollider::getAllCollisions()
 
 std::list<colliders::SegmentCollider*>  colliders::SegmentCollider::allSegmentColliders = std::list<colliders::SegmentCollider*>();
 std::list<colliders::BoxCollider*>  colliders::BoxCollider::allBoxColliders = std::list<colliders::BoxCollider*>();
+std::unordered_map<uint16_t, std::list<colliders::BoxCollider*>::iterator> colliders::BoxCollider::id2Pos = std::unordered_map<uint16_t, std::list<colliders::BoxCollider*>::iterator>();
+std::unordered_map<uint16_t, std::list<colliders::SegmentCollider*>::iterator> colliders::SegmentCollider::id2Pos = std::unordered_map<uint16_t, std::list<colliders::SegmentCollider*>::iterator>();
 
 bool colliders::SegmentCollider::collides(const SegmentCollider& other) const
 {
@@ -75,6 +83,12 @@ colliders::BoxCollider::BoxCollider(olc::vf2d p1, olc::vf2d p2, olc::vf2d p3, ol
 	this->p4 = p4;
 
 	this->allBoxColliders.push_back(this);
+	this->id2Pos[this->id] = std::prev(this->allBoxColliders.end());
+}
+
+colliders::BoxCollider::~BoxCollider()
+{
+	allBoxColliders.erase(id2Pos[id]);
 }
 
 bool colliders::BoxCollider::collides(const BoxCollider& other) const

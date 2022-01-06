@@ -9,6 +9,12 @@
 
 #include "olcPixelGameEngine.h"
 
+enum class TerrainType
+{
+	VERTICALTERRAIN,
+	PERLINNOISETERRAIN
+};
+
 class Visualizer;
 namespace random
 {
@@ -32,6 +38,8 @@ public:
 public:
 	Terrain(float gravity) : gravity(gravity) {}
 	Terrain(float gravity, const std::vector<olc::vf2d>& points);
+
+	~Terrain();
 
 	void addPoint(olc::vf2d p)
 	{

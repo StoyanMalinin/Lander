@@ -18,6 +18,18 @@ Terrain::Terrain(float gravity, const std::vector<olc::vf2d>& points) : gravity(
 	}
 }
 
+Terrain::~Terrain()
+{
+	points.clear();
+	while (colliders.empty() == false)
+	{
+		delete colliders.back();
+		colliders.pop_back();
+	}
+
+	id2Ind.clear();
+}
+
 VerticalTerrain::VerticalTerrain(float gravity) : Terrain(gravity) {}
 
 VerticalTerrain::VerticalTerrain(float gravity, const std::vector<olc::vf2d>& points) : Terrain(gravity, points) {}

@@ -20,7 +20,7 @@ namespace colliders
 	private:
 		static std::mt19937 rnd;
 
-	private:
+	protected:
 		uint16_t id;
 		std::unordered_set<uint16_t> ignored;
 	
@@ -49,9 +49,12 @@ namespace colliders
 
 	public:
 		static std::list<SegmentCollider*> allSegmentColliders;
+	private:
+		static std::unordered_map<uint16_t, std::list<SegmentCollider*>::iterator> id2Pos;
 
 	public:
 		SegmentCollider(olc::vf2d A, olc::vf2d B);
+		~SegmentCollider();
 
 		std::list<uint16_t> getAllCollisions();
 
@@ -70,8 +73,12 @@ namespace colliders
 		BoxCollider();
 		BoxCollider(olc::vf2d p1, olc::vf2d p2, olc::vf2d p3, olc::vf2d p4);
 
+		~BoxCollider();
+
 	public:
 		static std::list <BoxCollider*> allBoxColliders;
+	private:
+		static std::unordered_map<uint16_t, std::list<BoxCollider*>::iterator> id2Pos;
 
 	public:
 		bool collides(const BoxCollider& other) const override;
