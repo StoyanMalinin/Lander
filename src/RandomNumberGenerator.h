@@ -3,6 +3,8 @@
 #include <chrono>
 #include <random>
 
+#include "olcPixelGameEngine.h"
+
 namespace random
 {
 	class RandomNumberGenerator
@@ -17,5 +19,6 @@ namespace random
 		uint32_t operator() ();
 		int randIntInRange(int l, int r);
 		float randFloat(); //returns a float number in the interval [0, 1]
+		olc::vf2d randomPointInsideTriangle(olc::vf2d A, olc::vf2d B, olc::vf2d C);
 	};
 };

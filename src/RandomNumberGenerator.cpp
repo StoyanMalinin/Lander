@@ -1,9 +1,11 @@
-#pragma once
+#ifndef RANDOMNUMBERGENERATOR_CPP
+#define RANDOMNUMBERGENERATOR_CPP
 
 #include <cmath>
 #include <chrono>
 
 #include "RandomNumberGenerator.h"
+#include "RandomNumberGenerator.cpp"
 
 namespace random
 {
@@ -27,4 +29,14 @@ namespace random
 
 		return ((float)(x%(maxNum)))/((float)(maxNum-1));
 	}
+	olc::vf2d RandomNumberGenerator::randomPointInsideTriangle(olc::vf2d A, olc::vf2d B, olc::vf2d C)
+	{
+		float c1 = this->randFloat();
+		float c2 = this->randFloat();
+		if (c1 > c2) std::swap(c1, c2);
+
+		return A * (c1 - 0) + B * (c2 - c1) + C * (1.0f - c2);
+	}
 };
+
+#endif

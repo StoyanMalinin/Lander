@@ -42,7 +42,6 @@ VerticalTerrain::VerticalTerrain(float gravity, uint32_t seed) : Terrain(gravity
 void VerticalTerrain::generate(float screenWidth, float screenHeight)
 {
 	int len = rnd.randIntInRange(5, 25);
-
 	int maxX = screenWidth;
 
 	std::vector <int> xVals;

@@ -9,6 +9,7 @@
 #include "Collider.h"
 #include "Visualizer.h"
 #include "PerlinNoise1D.h"
+#include "ConcaveTerrain.h"
 #include "VerticalTerrainPerlin.cpp"
 
 void Visualizer::visualizeColliders(olc::Pixel color)
@@ -78,7 +79,8 @@ bool Visualizer::OnUserCreate()
 	playerCountSelecter.addButton(ui::RadioButton(this, 20, olc::vi2d(200, 200), "3 Players"));
 
 	terrainSelecter.addButton(ui::RadioButton(this, 20, olc::vi2d(700, 100), "Amplified Vertical Terrain"));
-	terrainSelecter.addButton(ui::RadioButton(this, 20, olc::vi2d(700, 150), "Random Vertical Terrain"));
+	terrainSelecter.addButton(ui::RadioButton(this, 20, olc::vi2d(700, 150), "Smooth Vertical Terrain"));
+	terrainSelecter.addButton(ui::RadioButton(this, 20, olc::vi2d(700, 200), "Concave Terrain"));
 
 	startX = 0; startY = 0;
 	endX = ScreenWidth(); endY = ScreenHeight();
@@ -181,6 +183,7 @@ bool Visualizer::GAMESETTINGSupdate(float fElapsedTime)
 
 			if (terrainSelecter.radioButtons[0].clicked == true) terrainType = TerrainType::VERTICALTERRAIN;
 			else if (terrainSelecter.radioButtons[1].clicked == true) terrainType = TerrainType::PERLINNOISETERRAIN;
+			else if (terrainSelecter.radioButtons[2].clicked == true) terrainType = TerrainType::CONCAVETERRAIN;
 			
 			delete gm->t;
 			gm->t = genNewTerrain();
@@ -201,6 +204,12 @@ bool Visualizer::PLAYINGupdate(float fElapsedTime)
 {
 	Clear(olc::BLACK);
 
+	//render
+	visualizePlayers();
+	gm->t->render(this);
+	visualizePlayerStats();
+	//visualizeColliders(olc::GREEN);
+
 	//update
 	gm->updateState(fElapsedTime);
 	if (gm->checkRoundOver() == true)
@@ -213,12 +222,6 @@ bool Visualizer::PLAYINGupdate(float fElapsedTime)
 
 		return true;
 	}
-
-	//render
-	visualizePlayers();
-	gm->t->render(this);
-	visualizePlayerStats();
-	//visualizeColliders(olc::GREEN);
 
 	return true;
 }
@@ -238,6 +241,7 @@ Terrain* Visualizer::genNewTerrain()
 	Terrain* t;
 	if (terrainType == TerrainType::VERTICALTERRAIN) t = new VerticalTerrain(5.0f);
 	else if (terrainType == TerrainType::PERLINNOISETERRAIN) t = new VerticalTerrainPerlin<20>(5.0f);
+	else if (terrainType == TerrainType::CONCAVETERRAIN) t = new ConcaveTerrain(5.0f);
 	
 	t->generate(ScreenWidth(), ScreenHeight());
 	return t;

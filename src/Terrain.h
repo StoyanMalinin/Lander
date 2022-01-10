@@ -12,7 +12,8 @@
 enum class TerrainType
 {
 	VERTICALTERRAIN,
-	PERLINNOISETERRAIN
+	PERLINNOISETERRAIN,
+	CONCAVETERRAIN
 };
 
 class Visualizer;
