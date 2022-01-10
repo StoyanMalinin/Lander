@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Terrain.h"
-//#include "PerlinNoise1D.h"
 
 void Terrain::render(Visualizer* vis, olc::Pixel color)
 {

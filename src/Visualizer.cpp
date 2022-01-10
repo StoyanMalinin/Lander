@@ -75,7 +75,7 @@ bool Visualizer::OnUserCreate()
 	playerCountSelecter.addButton(ui::RadioButton(this, 20, olc::vi2d(200, 150), "2 Players"));
 	playerCountSelecter.addButton(ui::RadioButton(this, 20, olc::vi2d(200, 200), "3 Players"));
 
-	terrainSelecter.addButton(ui::RadioButton(this, 20, olc::vi2d(700, 100), "Predefined Vertical Terrain"));
+	terrainSelecter.addButton(ui::RadioButton(this, 20, olc::vi2d(700, 100), "Amplified Vertical Terrain"));
 	terrainSelecter.addButton(ui::RadioButton(this, 20, olc::vi2d(700, 150), "Random Vertical Terrain"));
 
 	startX = 0; startY = 0;
@@ -173,9 +173,9 @@ bool Visualizer::GAMESETTINGSupdate(float fElapsedTime)
 			if(playerCnt>=1)
 				gm->addPlayer("Player 1", 1 * ScreenWidth() / (playerCnt + 1), ScreenHeight(), olc::WHITE, olc::Key::W, olc::Key::A, olc::Key::D);
 			if(playerCnt>=2)
-				gm->addPlayer("Player 2", 2 * ScreenWidth() / (playerCnt + 1), ScreenHeight(), olc::WHITE, olc::Key::UP, olc::Key::LEFT, olc::Key::RIGHT);
+				gm->addPlayer("Player 2", 2 * ScreenWidth() / (playerCnt + 1), ScreenHeight(), olc::BLUE, olc::Key::UP, olc::Key::LEFT, olc::Key::RIGHT);
 			if (playerCnt >= 3)
-				gm->addPlayer("Player 3", 3 * ScreenWidth() / (playerCnt + 1), ScreenHeight(), olc::WHITE, olc::Key::I, olc::Key::J, olc::Key::L);
+				gm->addPlayer("Player 3", 3 * ScreenWidth() / (playerCnt + 1), ScreenHeight(), olc::RED, olc::Key::I, olc::Key::J, olc::Key::L);
 
 			if (terrainSelecter.radioButtons[0].clicked == true) terrainType = TerrainType::VERTICALTERRAIN;
 			else if (terrainSelecter.radioButtons[1].clicked == true) terrainType = TerrainType::PERLINNOISETERRAIN;
