@@ -55,6 +55,9 @@ void Player::resetToPosition(const olc::vf2d& newPos)
 {
 	orientation = { 0, -1 };
 	
+	bodyCollider->active = true;
+	footCollider->active = true;
+
 	bodyCollider->p1 = newPos;
 	bodyCollider->p2 = newPos + orientation.perp() * width;
 	bodyCollider->p3 = newPos + orientation.perp() * width + 0.90 * orientation * height;

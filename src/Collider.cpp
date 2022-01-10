@@ -6,6 +6,7 @@
 colliders::Collider::Collider()
 {
 	this->id = rnd();//we do not care that it overflows
+	this->active = true;
 	this->ignored.insert(id);
 }
 
@@ -30,9 +31,9 @@ std::list<uint16_t> colliders::SegmentCollider::getAllCollisions()
 	std::list<uint16_t> l;
 
 	for (colliders::SegmentCollider* sc : colliders::SegmentCollider::allSegmentColliders)
-		if (checkIgnored(sc->getId()) == false && collides(*sc) == true) l.push_back(sc->getId());
+		if (checkIgnored(sc->getId()) == false && sc->active==true && collides(*sc) == true) l.push_back(sc->getId());
 	for (colliders::BoxCollider* bc : colliders::BoxCollider::allBoxColliders)
-		if (checkIgnored(bc->getId()) == false && collides(*bc) == true) l.push_back(bc->getId());
+		if (checkIgnored(bc->getId()) == false && bc->active == true && collides(*bc) == true) l.push_back(bc->getId());
 
 	return l;
 }
@@ -70,10 +71,7 @@ void colliders::SegmentCollider::translate(olc::vf2d v)
 	B += v;
 }
 
-colliders::BoxCollider::BoxCollider() : Collider()
-{
-
-}
+colliders::BoxCollider::BoxCollider() : Collider() {}
 
 colliders::BoxCollider::BoxCollider(olc::vf2d p1, olc::vf2d p2, olc::vf2d p3, olc::vf2d p4) : BoxCollider()
 {
@@ -93,6 +91,26 @@ colliders::BoxCollider::~BoxCollider()
 
 bool colliders::BoxCollider::collides(const BoxCollider& other) const
 {
+	if (math::insideQuad(p1, other.p1, other.p2, other.p3, other.p4) == true) return true;
+	if (math::insideQuad(p2, other.p1, other.p2, other.p3, other.p4) == true) return true;
+	if (math::insideQuad(p3, other.p1, other.p2, other.p3, other.p4) == true) return true;
+	if (math::insideQuad(p4, other.p1, other.p2, other.p3, other.p4) == true) return true;
+
+	if (math::insideQuad(other.p1, p1, p2, p3, p4) == true) return true;
+	if (math::insideQuad(other.p2, p1, p2, p3, p4) == true) return true;
+	if (math::insideQuad(other.p3, p1, p2, p3, p4) == true) return true;
+	if (math::insideQuad(other.p4, p1, p2, p3, p4) == true) return true;
+
+	if (math::segmentIntersection(p1, p2, other.p1, other.p2) == true) return true;
+	if (math::segmentIntersection(p1, p2, other.p2, other.p3) == true) return true;
+	if (math::segmentIntersection(p1, p2, other.p3, other.p4) == true) return true;
+	if (math::segmentIntersection(p1, p2, other.p4, other.p1) == true) return true;
+
+	if (math::segmentIntersection(p2, p3, other.p1, other.p2) == true) return true;
+	if (math::segmentIntersection(p2, p3, other.p2, other.p3) == true) return true;
+	if (math::segmentIntersection(p2, p3, other.p3, other.p4) == true) return true;
+	if (math::segmentIntersection(p2, p3, other.p4, other.p1) == true) return true;
+
 	return false;
 }
 
@@ -106,9 +124,13 @@ std::list<uint16_t> colliders::BoxCollider::getAllCollisions()
 	std::list<uint16_t> l;
 
 	for (colliders::SegmentCollider* sc : colliders::SegmentCollider::allSegmentColliders)
-		if (checkIgnored(sc->getId()) == false && collides(*sc) == true) l.push_back(sc->getId());
+		if (checkIgnored(sc->getId()) == false && sc->active == true && collides(*sc) == true) l.push_back(sc->getId());
 	for (colliders::BoxCollider* bc : colliders::BoxCollider::allBoxColliders)
-		if (checkIgnored(bc->getId()) == false && collides(*bc) == true) l.push_back(bc->getId());
+		if (checkIgnored(bc->getId()) == false && bc->active==true && collides(*bc) == true)
+		{
+			collides(*bc);
+			l.push_back(bc->getId());
+		}
 
 	return l;
 }

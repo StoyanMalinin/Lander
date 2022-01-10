@@ -159,6 +159,8 @@ void GameMaster::FillRotatedRect(olc::vf2d pos, float width, float height, olc::
 void GameMaster::handlePlayerDeath(Player& p)
 {
 	p.died = true;
+	p.bodyCollider->active = false;
+	p.footCollider->active = false;
 	std::cout << p.name << " died" << '\n';
 }
 

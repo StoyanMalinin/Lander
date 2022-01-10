@@ -18,8 +18,10 @@ namespace math
 
 	float sign(float x)
 	{
-		if (x < 0) return -1;
-		if (x > 0) return +1;
+		const float eps = 0.0000001f;
+		
+		if (x < -eps) return -1;
+		if (x > +eps) return +1;
 		return 0;
 	}
 
@@ -46,7 +48,8 @@ namespace math
 		if (fabs(sB2) < eps && between(B2, A1, A2) == true) return true;
 		if (fabs(sA1) < eps && between(A1, B1, B2)==true) return true;
 		if (fabs(sA2) < eps && between(A2, B1, B2)==true) return true;
-	
+		if (fabs(sB1) < eps || fabs(sB2) < eps || fabs(sA1) < eps || fabs(sA2) < eps) return false;
+
 		if (sign(sB1) != sign(sB2) && sign(sA1) != sign(sA2)) return true;
 		return false;
 	}

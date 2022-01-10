@@ -39,6 +39,8 @@ void Visualizer::visualizePlayers()
 {
 	for (Player& p : gm->players)
 	{
+		if (p.died == true) continue;
+
 		olc::GFX2D::Transform2D t = p.trans;
 		
 		t.Translate(p.pos.x, ScreenHeight() - p.pos.y);

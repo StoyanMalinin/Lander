@@ -19,7 +19,9 @@ namespace colliders
 	{
 	private:
 		static std::mt19937 rnd;
-
+	
+	public:
+		bool active;
 	protected:
 		uint16_t id;
 		std::unordered_set<uint16_t> ignored;
