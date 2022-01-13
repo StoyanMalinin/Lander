@@ -28,11 +28,11 @@ void Visualizer::visualizeColliders(olc::Pixel color)
 
 void Visualizer::visualizePlayerStats()
 {
-	int yPos = 5;
+	int yPos = ScreenHeight() - 10;
 	for (const Player& p : gm->players)
 	{
-		this->DrawString({ 0, yPos }, p.getStats(), p.color, 1);
-		yPos += 10;
+		this->DrawStringDecal(olc::vf2d(0, yPos), p.getStats(), p.color, {1.3f, 1.3f});
+		yPos -= 10;
 	}
 }
 
@@ -177,7 +177,7 @@ bool Visualizer::GAMESETTINGSupdate(float fElapsedTime)
 			if(playerCnt>=1)
 				gm->addPlayer("Player 1", 1 * ScreenWidth() / (playerCnt + 1), ScreenHeight(), olc::WHITE, olc::Key::W, olc::Key::A, olc::Key::D);
 			if(playerCnt>=2)
-				gm->addPlayer("Player 2", 2 * ScreenWidth() / (playerCnt + 1), ScreenHeight(), olc::BLUE, olc::Key::UP, olc::Key::LEFT, olc::Key::RIGHT);
+				gm->addPlayer("Player 2", 2 * ScreenWidth() / (playerCnt + 1), ScreenHeight(), olc::Pixel(21, 183, 252), olc::Key::UP, olc::Key::LEFT, olc::Key::RIGHT);
 			if (playerCnt >= 3)
 				gm->addPlayer("Player 3", 3 * ScreenWidth() / (playerCnt + 1), ScreenHeight(), olc::RED, olc::Key::I, olc::Key::J, olc::Key::L);
 
@@ -208,7 +208,7 @@ bool Visualizer::PLAYINGupdate(float fElapsedTime)
 	visualizePlayers();
 	gm->t->render(this);
 	visualizePlayerStats();
-	//visualizeColliders(olc::GREEN);
+	visualizeColliders(olc::GREEN);
 
 	//update
 	gm->updateState(fElapsedTime);

@@ -76,19 +76,11 @@ void GameMaster::updateState(float elapsedTime)
 
 		if(vis->GetKey(p.leftKey).bHeld==true)
 		{
-			p.bodyCollider->rotate(p.pos, -p.rotationSpeed * elapsedTime);
-			p.footCollider->rotate(p.pos, -p.rotationSpeed * elapsedTime);
-
-			p.orientation.rotate(-p.rotationSpeed * elapsedTime);
-			p.trans.Rotate(-p.rotationSpeed * elapsedTime);
+			p.rotate(-p.rotationSpeed * elapsedTime);
 		}
 		if(vis->GetKey(p.rightKey).bHeld==true)
 		{
-			p.bodyCollider->rotate(p.pos, +p.rotationSpeed * elapsedTime);
-			p.footCollider->rotate(p.pos, +p.rotationSpeed * elapsedTime);
-
-			p.orientation.rotate(+p.rotationSpeed * elapsedTime);
-			p.trans.Rotate(+p.rotationSpeed * elapsedTime);
+			p.rotate(+p.rotationSpeed * elapsedTime);
 		}
 	}
 	for (Player& p : players)

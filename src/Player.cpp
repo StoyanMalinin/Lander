@@ -25,8 +25,15 @@ Player::Player(const std::string& name, float x, float y, olc::Pixel color, olc:
 
 void Player::rotate(float angle)
 {
+	olc::vf2d center = (bodyCollider->p1 + bodyCollider->p2) / 2;
+
+	bodyCollider->rotate(center, angle);
+	footCollider->rotate(center, angle);
+
 	orientation.rotate(angle);
 	trans.Rotate(angle);
+
+	pos = (pos - center).rotated(angle) + center;
 }
 
 void Player::applyForce(olc::vf2d F, float elapsedTime)
