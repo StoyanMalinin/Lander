@@ -36,6 +36,13 @@ void GameMaster::updateState(float elapsedTime)
 
 		if (p.bodyCollider->getAllCollisions().empty() == false)
 			handlePlayerDeath(p);
+
+		if (p.pos.x <= -50 || p.pos.x >= vis->ScreenWidth() + 50
+			|| p.pos.y <= 0 || p.pos.y >= vis->ScreenHeight() + 50)
+		{
+			handlePlayerDeath(p);
+			std::cout << "The player went outside the map" << '\n';
+		}
 		
 		std::list<uint16_t> footCollisions = p.footCollider->getAllCollisions();
 		if (footCollisions.empty() == false)
@@ -53,8 +60,8 @@ void GameMaster::updateState(float elapsedTime)
 				}
 				else
 				{
-					std::cout << "Bad positioning in landing" << '\n';
 					handlePlayerDeath(p);
+					std::cout << "Bad positioning in landing" << '\n';
 				}
 			}
 		}
@@ -126,6 +133,7 @@ void GameMaster::resetPlayers()
 	for (int i = 0; i < players.size(); i++)
 	{
 		players[i].resetToPosition(olc::vf2d((i + 1) * vis->ScreenWidth() / (players.size() +1), vis->ScreenHeight()));
+		players[i].fuel += std::min(600.0f, 0.2f * players[i].fuel);
 	}
 }
 

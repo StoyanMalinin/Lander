@@ -208,7 +208,7 @@ bool Visualizer::PLAYINGupdate(float fElapsedTime)
 	visualizePlayers();
 	gm->t->render(this);
 	visualizePlayerStats();
-	visualizeColliders(olc::GREEN);
+	//visualizeColliders(olc::GREEN);
 
 	//update
 	gm->updateState(fElapsedTime);
@@ -238,10 +238,12 @@ bool Visualizer::OnUserUpdate(float fElapsedTime)
 
 Terrain* Visualizer::genNewTerrain()
 {
+	float gravity = 4.5f + rnd.randFloat();
+
 	Terrain* t;
-	if (terrainType == TerrainType::VERTICALTERRAIN) t = new VerticalTerrain(5.0f);
-	else if (terrainType == TerrainType::PERLINNOISETERRAIN) t = new VerticalTerrainPerlin<20>(5.0f);
-	else if (terrainType == TerrainType::CONCAVETERRAIN) t = new ConcaveTerrain(5.0f);
+	if (terrainType == TerrainType::VERTICALTERRAIN) t = new VerticalTerrain(gravity);
+	else if (terrainType == TerrainType::PERLINNOISETERRAIN) t = new VerticalTerrainPerlin<20>(gravity);
+	else if (terrainType == TerrainType::CONCAVETERRAIN) t = new ConcaveTerrain(gravity);
 	
 	t->generate(ScreenWidth(), ScreenHeight());
 	return t;

@@ -1,17 +1,20 @@
 #ifndef VISUALIZER_H
 #define VISUALIZER_H
 
-#include "Terrain.h"
 
 #include "UI.h"
+#include "Terrain.h"
 #include "Collider.h"
 #include "GameMaster.h"
+#include "RandomNumberGenerator.h"
+
 #include "olcPixelGameEngine.h"
 #include "olcPGEX_Graphics2D.h"
 
 class Terrain;
 class GameMaster;
 enum class TerrainType;
+class RandomNumberGenerator;
 
 enum class GameState
 {
@@ -30,6 +33,8 @@ private:
 
 	GameMaster *gm;
 	float startX, endX, startY, endY;
+
+	random::RandomNumberGenerator rnd;
 
 private:
 	void visualizeColliders(olc::Pixel color);
