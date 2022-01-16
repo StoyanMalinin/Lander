@@ -24,7 +24,7 @@ struct Player
 	olc::Key thrustKey, leftKey, rightKey;
 	std::shared_ptr<colliders::BoxCollider> bodyCollider, footCollider;
 	
-	float score = 0;
+	int score = 0;
 	std::string name;
 	bool landed = false, died = false;
 

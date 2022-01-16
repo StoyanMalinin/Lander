@@ -133,7 +133,7 @@ void GameMaster::resetPlayers()
 	for (int i = 0; i < players.size(); i++)
 	{
 		players[i].resetToPosition(olc::vf2d((i + 1) * vis->ScreenWidth() / (players.size() +1), vis->ScreenHeight()));
-		players[i].fuel += std::min(600.0f, 0.2f * players[i].fuel);
+		players[i].fuel = std::min(600.0f, 1.2f * players[i].fuel);
 	}
 }
 
