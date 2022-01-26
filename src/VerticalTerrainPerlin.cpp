@@ -9,7 +9,7 @@ template <int perlinGridSz>
 class VerticalTerrainPerlin : public VerticalTerrain
 {
 private:
-	random::PerlinNoise1D<perlinGridSz> perlin;
+	myrandom::PerlinNoise1D<perlinGridSz> perlin;
 
 public:
 	VerticalTerrainPerlin(float gravity);
@@ -26,7 +26,7 @@ VerticalTerrainPerlin<perlinGridSz>::VerticalTerrainPerlin(float gravity) : Vert
 template<int perlinGridSz>
 VerticalTerrainPerlin<perlinGridSz>::VerticalTerrainPerlin(float gravity, uint32_t seed) : Terrain(gravity)
 {
-	perlin = random::PerlinNoise1D(seed);
+	perlin = myrandom::PerlinNoise1D(seed);
 }
 
 template <int perlinGridSz>

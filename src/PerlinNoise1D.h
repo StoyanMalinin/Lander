@@ -2,7 +2,7 @@
 
 #include "RandomNumberGenerator.h"
 
-namespace random
+namespace myrandom
 {
 	class RandomNumberGenerator;
 
