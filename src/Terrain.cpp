@@ -36,7 +36,7 @@ VerticalTerrain::VerticalTerrain(float gravity, const std::vector<olc::vf2d>& po
 
 VerticalTerrain::VerticalTerrain(float gravity, uint32_t seed) : Terrain(gravity)
 {
-	this->rnd = random::RandomNumberGenerator(seed);
+	this->rnd = myrandom::RandomNumberGenerator(seed);
 }
 
 void VerticalTerrain::generate(float screenWidth, float screenHeight)

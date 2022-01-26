@@ -7,7 +7,7 @@ ConcaveTerrain::ConcaveTerrain(float gravity, const std::vector<olc::vf2d>& poin
 
 ConcaveTerrain::ConcaveTerrain(float gravity, uint32_t seed) : Terrain(gravity)
 {
-	this->rnd = random::RandomNumberGenerator(seed);
+	this->rnd = myrandom::RandomNumberGenerator(seed);
 }
 
 void ConcaveTerrain::generate(float screenWidth, float screenHeight)

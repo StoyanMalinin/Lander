@@ -15,7 +15,7 @@ private:
 	olc::vf2d innerPoint;
 
 private:
-	random::RandomNumberGenerator rnd;
+	myrandom::RandomNumberGenerator rnd;
 public:
 	ConcaveTerrain(float gravity);
 	ConcaveTerrain(float gravity, const std::vector<olc::vf2d>& points);

@@ -34,7 +34,7 @@ private:
 	GameMaster *gm;
 	float startX, endX, startY, endY;
 
-	random::RandomNumberGenerator rnd;
+	myrandom::RandomNumberGenerator rnd;
 
 private:
 	void visualizeColliders(olc::Pixel color);

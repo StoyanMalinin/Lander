@@ -5,7 +5,7 @@
 
 #include "olcPixelGameEngine.h"
 
-namespace random
+namespace myrandom
 {
 	class RandomNumberGenerator
 	{

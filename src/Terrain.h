@@ -17,7 +17,7 @@ enum class TerrainType
 };
 
 class Visualizer;
-namespace random
+namespace myrandom
 {
 	template <int gridSz>
 	class PerlinNoise1D;
@@ -60,7 +60,7 @@ public:
 class VerticalTerrain : public Terrain
 {
 protected:
-	random::RandomNumberGenerator rnd;
+	myrandom::RandomNumberGenerator rnd;
 
 public:
 	VerticalTerrain(float gravity);

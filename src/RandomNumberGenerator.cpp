@@ -7,7 +7,7 @@
 #include "RandomNumberGenerator.h"
 #include "RandomNumberGenerator.cpp"
 
-namespace random
+namespace myrandom
 {
 	RandomNumberGenerator::RandomNumberGenerator() : rnd((uint32_t)std::chrono::steady_clock::now().time_since_epoch().count()) {}
 	RandomNumberGenerator::RandomNumberGenerator(uint32_t seed) : rnd(seed) {}
